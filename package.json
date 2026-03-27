@@ -1,4 +1,6 @@
 {
+  "main": "app.js",
+  "type": "module",
   "scripts": {
     "build": "tsc",
     "start-dev": "tsc && node ./dist/app.js"
