@@ -1,4 +1,11 @@
 {
+  //   Он выставляет настройки оптимальные именно для Node.js 24 — например:
+  // target и lib соответствующие фичам Node 24 (ES2023+)
+  // module: "Node16" или NodeNext для нативных ESM
+  // moduleResolution: "Node16"
+  // strict: true
+  // и другие разумные дефолты
+  "extends": "@tsconfig/node24/tsconfig.json",
   // Visit https://aka.ms/tsconfig to read more about this file
   "compilerOptions": {
     // File Layout
@@ -8,9 +15,7 @@
     // See also https://aka.ms/tsconfig/module
     "module": "nodenext",
     "target": "esnext",
-    "types": [
-      "node"
-    ],
+    "types": ["node"],
     // For nodejs:
     // "lib": ["esnext"],
     // "types": ["node"],
@@ -36,8 +41,9 @@
     "isolatedModules": true,
     "noUncheckedSideEffectImports": true,
     "moduleDetection": "force",
-    "skipLibCheck": true,
+    "skipLibCheck": true
   },
+  "include": ["**/*.ts", "src/**/*"],
   "exclude": [
     // "vitest.config.ts",
     "dist/**"

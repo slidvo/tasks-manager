@@ -3,9 +3,10 @@
   "type": "module",
   "scripts": {
     "build": "tsc",
-    "start-dev": "tsc && node ./dist/app.js"
+    "start-dev": "tsc && node ./dist/src/app.js"
   },
   "devDependencies": {
+    "@tsconfig/node24": "^24.0.4",
     "@types/express": "^5.0.6",
     "@types/node": "^25.5.0",
     "typescript": "^6.0.2"
