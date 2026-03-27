@@ -1,18 +1,3 @@
-# Task meneger
-
-## Инициализация проекта
-1. npm install -D typescript
-2. npm install -D @types/node
-3. npm install express
-4. npm install -D @types/express
-5. npx tsc --init
-
-## tsconfig.json
-
-<details>
-<summary>Показать JSON</summary>
-
-```json
 {
   // Visit https://aka.ms/tsconfig to read more about this file
   "compilerOptions": {
@@ -58,28 +43,3 @@
     "dist/**"
   ]
 }
-```
-</details>
-
-## package.json
-
-<details>
-<summary>Показать JSON</summary>
-
-```json
-{
-  "scripts": {
-    "build": "tsc",
-    "start-dev": "tsc && node ./dist/app.js"
-  },
-  "devDependencies": {
-    "@types/express": "^5.0.6",
-    "@types/node": "^25.5.0",
-    "typescript": "^6.0.2"
-  },
-  "dependencies": {
-    "express": "^5.2.1"
-  }
-}
-```
-</details>
