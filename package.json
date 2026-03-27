@@ -3,7 +3,7 @@
   "type": "module",
   "scripts": {
     "build": "tsc",
-    "start-dev": "tsc && node ./dist/src/app.js"
+    "start-dev": "tsc && node ./dist/app.js"
   },
   "devDependencies": {
     "@tsconfig/node24": "^24.0.4",
