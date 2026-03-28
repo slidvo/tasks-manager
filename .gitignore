@@ -5,3 +5,5 @@ tsconfig.tsbuildinfo
 
 /generated/prisma
 .vscode
+
+# ignore ./config/.env.production ????
