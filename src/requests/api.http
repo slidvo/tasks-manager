@@ -1,0 +1,11 @@
+POST http://localhost:3000/api/users/add HTTP/1.1
+Content-Type: application/json
+
+{
+    "user":{
+        "id":1,
+    "name":"hello",
+    "email":"hello-world@mail.ru",
+    "created": "01.01.21"
+    }
+}
