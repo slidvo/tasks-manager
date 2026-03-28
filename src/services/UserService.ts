@@ -15,6 +15,7 @@ const Errors = {
   USER_NOT_FOUND: 'User not found',
 } as const;
 
+//TODO assert that process.env.DATABASE_URL_API exists
 const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL_API});
 const prisma = new PrismaClient({ adapter });
 /******************************************************************************
