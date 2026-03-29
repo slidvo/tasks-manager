@@ -11,15 +11,15 @@ export class UserRepoPrisma {
   }
 
   async addOne(user: UserDto): Promise<void> {
-      await this.prisma.user.create({
-        data: {
-          email: user.email,
-          name: user.name,
-        },
-        select: {
-          email: true,
-          name: true,
-        },
-      });
+    await this.prisma.user.create({
+      data: {
+        email: user.email,
+        name: user.name,
+      },
+      select: {
+        email: true,
+        name: true,
+      },
+    });
   }
 }

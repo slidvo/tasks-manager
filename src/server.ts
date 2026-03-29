@@ -1,3 +1,4 @@
+import { PrismaClientKnownRequestError } from '@prisma/client/runtime/client';
 import express, { NextFunction, Request, Response } from 'express';
 import helmet from 'helmet';
 import logger from 'jet-logger';
@@ -9,7 +10,6 @@ import { RouteError } from '@src/common/utils/route-errors';
 import BaseRouter from '@src/routes/apiRouter';
 
 import EnvVars, { NodeEnvs } from './common/constants/env';
-import { PrismaClientKnownRequestError } from '@prisma/client/runtime/client';
 
 /******************************************************************************
                                 Setup
@@ -45,15 +45,11 @@ app.use((err: Error, _: Request, res: Response, next: NextFunction) => {
     res.status(err.status).json({ error: err.message });
   }
 
-  if (
-    err instanceof PrismaClientKnownRequestError &&
-    err.code === 'P2002'
-  ) {
+  if (err instanceof PrismaClientKnownRequestError && err.code === 'P2002') {
     let fields = err.meta?.target;
 
     if (!fields && err.meta?.driverAdapterError) {
-      fields = (err.meta.driverAdapterError as any)?.cause?.constraint
-        ?.fields;
+      fields = (err.meta.driverAdapterError as any)?.cause?.constraint?.fields;
     }
 
     let fieldName = 'unknown';
@@ -61,7 +57,9 @@ app.use((err: Error, _: Request, res: Response, next: NextFunction) => {
       fieldName = fields[0]; // Обычно там одно поле, например "email"
     }
 
-    res.status(500).json({ error: `Пользователь с таким ${fieldName} уже существует` });
+    res
+      .status(500)
+      .json({ error: `Пользователь с таким ${fieldName} уже существует` });
   }
 
   return next(err);
