@@ -2,6 +2,7 @@ import { PrismaPg } from '@prisma/adapter-pg';
 
 import HttpStatusCodes from '@src/common/constants/HttpStatusCodes';
 import { RouteError } from '@src/common/utils/route-errors';
+import { UserMapper } from '@src/mapper/UserMapper';
 import { UserDto } from '@src/models/User.model';
 import UserRepo from '@src/repos/UserRepo';
 import { UserRepoPrisma } from '@src/repos/UserRepoPrisma';
@@ -24,8 +25,9 @@ const userRepoPrisma = new UserRepoPrisma(
 /**
  * Get all users.
  */
-function getAll(): Promise<UserDto[]> {
-  return UserRepo.getAll();
+async function getAll(): Promise<UserDto[]> {
+  const users = await userRepoPrisma.getAll();
+  return UserMapper.toDtos(users);
 }
 
 /**

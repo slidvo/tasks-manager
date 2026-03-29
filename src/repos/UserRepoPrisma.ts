@@ -1,7 +1,5 @@
 import { PrismaPg } from '@prisma/adapter-pg';
-import { PrismaClientKnownRequestError } from '@prisma/client/runtime/client';
-import { PrismaClient } from 'generated/prisma/client';
-
+import { PrismaClient, User } from 'generated/prisma/client';
 import { UserDto } from '@src/models/User.model';
 
 export class UserRepoPrisma {
@@ -21,5 +19,9 @@ export class UserRepoPrisma {
         name: true,
       },
     });
+  }
+
+  async getAll(): Promise<User[]> {
+    return this.prisma.user.findMany();
   }
 }
