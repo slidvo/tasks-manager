@@ -11,7 +11,7 @@ import parseReq from './common/parseReq';
 /******************************************************************************
                                 Constants
 ******************************************************************************/
-
+//TODO Зачем это ?
 const reqValidators = {
   add: parseReq({ user: User.isComplete }),
   update: parseReq({ user: User.isComplete }),

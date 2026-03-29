@@ -1,26 +1,22 @@
 import { isNonEmptyString, isString, isUnsignedInteger } from 'jet-validators';
 import { parseObject, Schema, testObject } from 'jet-validators/utils';
 
-import { transformIsDate } from '@src/common/utils/validators';
+// import { transformIsDate } from '@src/common/utils/validators';
 
-import { Entity } from './common/types';
+// import { Entity } from './common/types';
 
 /******************************************************************************
                                  Constants
 ******************************************************************************/
 
-const GetDefaults = (): IUser => ({
-  id: 0,
+const GetDefaults = (): UserDto => ({
   name: '',
   email: '',
-  created: new Date(),
 });
 
-const schema: Schema<IUser> = {
-  id: isUnsignedInteger,
+const schema: Schema<UserDto> = {
   name: isString,
   email: isString,
-  created: transformIsDate,
 };
 
 /******************************************************************************
@@ -30,7 +26,7 @@ const schema: Schema<IUser> = {
 /**
  * @entity users
  */
-export interface IUser extends Entity {
+export interface UserDto {
   name: string;
   email: string;
 }
@@ -40,10 +36,10 @@ export interface IUser extends Entity {
 ******************************************************************************/
 
 // Set the "parseUser" function
-const parseUser = parseObject<IUser>(schema);
+const parseUser = parseObject<UserDto>(schema);
 
 // For the APIs make sure the right fields are complete
-const isCompleteUser = testObject<IUser>({
+const isCompleteUser = testObject<UserDto>({
   ...schema,
   name: isNonEmptyString,
   email: isNonEmptyString,
@@ -56,7 +52,7 @@ const isCompleteUser = testObject<IUser>({
 /**
  * New user object.
  */
-function new_(user?: Partial<IUser>): IUser {
+function new_(user?: Partial<UserDto>): UserDto {
   return parseUser({ ...GetDefaults(), ...user }, (errors) => {
     throw new Error('Setup new user failed ' + JSON.stringify(errors, null, 2));
   });
