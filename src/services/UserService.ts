@@ -41,12 +41,8 @@ function addOne(user: UserDto): Promise<void> {
  * Update one user.
  */
 async function updateOne(user: UserDto): Promise<void> {
-  // const persists = await UserRepo.persists(user.id);
-  // if (!persists) {
-  //   throw new RouteError(HttpStatusCodes.NOT_FOUND, Errors.USER_NOT_FOUND);
-  // }
-  // return UserRepo.update(user);
-  //TODO
+  const updated = await userRepoPrisma.updateOne(user);
+  console.log(`updated = ${JSON.stringify(updated)}`);
 }
 
 /**

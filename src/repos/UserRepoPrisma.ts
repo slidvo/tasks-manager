@@ -1,5 +1,6 @@
 import { PrismaPg } from '@prisma/adapter-pg';
 import { PrismaClient, User } from 'generated/prisma/client';
+
 import { UserDto } from '@src/models/User.model';
 
 export class UserRepoPrisma {
@@ -23,5 +24,19 @@ export class UserRepoPrisma {
 
   async getAll(): Promise<User[]> {
     return this.prisma.user.findMany();
+  }
+
+  async updateOne(user: UserDto): Promise<User> {
+    const updated = await this.prisma.user.update({
+      where: {
+        email: user.email,
+      },
+      data: {
+        name: user.name,
+        email: user.email,
+      },
+    });
+    console.log(`updated user: ${JSON.stringify(updated)}`);
+    return updated;
   }
 }
