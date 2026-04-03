@@ -14,6 +14,7 @@ const config = defineConfig({
   resolve: {
     alias: {
       '@src': path.resolve(__dirname, './src'),
+      'generated/prisma': path.resolve(__dirname, './generated/prisma')
     },
   },
 });

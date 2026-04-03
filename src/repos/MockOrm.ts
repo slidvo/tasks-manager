@@ -2,12 +2,12 @@ import jsonfile from 'jsonfile';
 import tspo from 'tspo';
 
 import EnvVars, { NodeEnvs } from '@src/common/constants/env';
-import { IUser } from '@src/models/User.model';
+import { UserDto } from '@src/models/User.model';
 
 /******************************************************************************
                                 Constants
 ******************************************************************************/
-
+//TODO Удалить использовать бд в prisma.io ???
 const DATABASE_FILE_PATH =
   __dirname +
   '/common' +
@@ -20,7 +20,7 @@ const DATABASE_FILE_PATH =
 ******************************************************************************/
 
 type Database = {
-  users: IUser[];
+  users: UserDto[];
 };
 
 /******************************************************************************

@@ -14,7 +14,7 @@ datasource db {
 
 
 // Example models
-
+//TODO Добавить 
 model User {
   id    Int     @id @default(autoincrement())
   email String  @unique
