@@ -1,9 +1,5 @@
-import { isNonEmptyString, isString, isUnsignedInteger } from 'jet-validators';
+import { isNonEmptyString, isString } from 'jet-validators';
 import { parseObject, Schema, testObject } from 'jet-validators/utils';
-
-// import { transformIsDate } from '@src/common/utils/validators';
-
-// import { Entity } from './common/types';
 
 /******************************************************************************
                                  Constants

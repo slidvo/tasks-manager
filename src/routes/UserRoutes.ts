@@ -2,7 +2,7 @@ import { isNumber } from 'jet-validators';
 import { transform } from 'jet-validators/utils';
 
 import HttpStatusCodes from '@src/common/constants/HttpStatusCodes';
-import User from '@src/models/User.model';
+import UserDto from '@src/models/User.model';
 import UserService from '@src/services/UserService';
 
 import { Req, Res } from './common/express-types';
@@ -13,8 +13,8 @@ import parseReq from './common/parseReq';
 ******************************************************************************/
 //TODO Зачем это ?
 const reqValidators = {
-  add: parseReq({ user: User.isComplete }),
-  update: parseReq({ user: User.isComplete }),
+  add: parseReq({ user: UserDto.isComplete }),
+  update: parseReq({ user: UserDto.isComplete }),
   delete: parseReq({ id: transform(Number, isNumber) }),
 } as const;
 

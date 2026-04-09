@@ -2,6 +2,7 @@ import { Router } from 'express';
 
 import Paths from '@src/common/constants/Paths';
 
+import AuthRoutes from './AuthRoutes';
 import UserRoutes from './UserRoutes';
 
 /******************************************************************************
@@ -19,8 +20,13 @@ userRouter.post(Paths.Users.Add, UserRoutes.add);
 userRouter.put(Paths.Users.Update, UserRoutes.update);
 userRouter.delete(Paths.Users.Delete, UserRoutes.delete);
 
-apiRouter.use(Paths.Users._, userRouter);
+// ----------------------- Add AuthRouter --------------------------------- //
+const authRouter = Router();
 
+authRouter.post(Paths.Auth.Register, AuthRoutes.register);
+//=============================================================================
+apiRouter.use(Paths.Users._, userRouter);
+apiRouter.use(Paths.Auth._, authRouter);
 /******************************************************************************
                                 Export
 ******************************************************************************/

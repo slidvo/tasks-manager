@@ -1,5 +1,6 @@
 import { PrismaPg } from '@prisma/adapter-pg';
 import { PrismaClient, User } from 'generated/prisma/client';
+import { date } from 'jet-env';
 
 import { UserDto } from '@src/models/User.model';
 
@@ -38,5 +39,15 @@ export class UserRepoPrisma {
     });
     console.log(`updated user: ${JSON.stringify(updated)}`);
     return updated;
+  }
+
+  async register(user: UserDto): Promise<User> {
+    //TODO
+    return {
+      id: 1,
+      uuid: 'asdas',
+      email: user.email,
+      name: user.name,
+    };
   }
 }
