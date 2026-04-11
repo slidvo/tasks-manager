@@ -15,6 +15,7 @@ datasource db {
 
 // Example models
 //TODO Добавить 
+//TODO name  String? добавить знаение по умолчанию
 model User {
   id    Int     @id @default(autoincrement())
   uuid String @unique @default(uuid())

@@ -1,7 +1,7 @@
 import { PrismaPg } from '@prisma/adapter-pg';
 import { PrismaClient, User } from 'generated/prisma/client';
-import { date } from 'jet-env';
 
+import { BackendError } from '@src/errors/BackendError';
 import { UserDto } from '@src/models/User.model';
 
 export class UserRepoPrisma {
@@ -41,13 +41,15 @@ export class UserRepoPrisma {
     return updated;
   }
 
-  async register(user: UserDto): Promise<User> {
-    //TODO
-    return {
-      id: 1,
-      uuid: 'asdas',
-      email: user.email,
-      name: user.name,
-    };
+  async getByEmail(email: string): Promise<User> {
+    const user = await this.prisma.user.findUnique({
+      where: {
+        email: email,
+      },
+    });
+
+    if (!user) throw new BackendError(`User with email ${email} not found`);
+
+    return user;
   }
 }

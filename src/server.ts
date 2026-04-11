@@ -10,6 +10,7 @@ import { RouteError } from '@src/common/utils/route-errors';
 import BaseRouter from '@src/routes/apiRouter';
 
 import EnvVars, { NodeEnvs } from './common/constants/env';
+import { BackendError } from './errors/BackendError';
 
 /******************************************************************************
                                 Setup
@@ -60,6 +61,10 @@ app.use((err: Error, _: Request, res: Response, next: NextFunction) => {
     res
       .status(500)
       .json({ error: `Пользователь с таким ${fieldName} уже существует` });
+  }
+
+  if (err instanceof BackendError) {
+    res.status(500).json({ error: err.message });
   }
 
   return next(err);

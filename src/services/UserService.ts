@@ -51,9 +51,16 @@ async function deleteOne(id: number): Promise<void> {
 }
 
 async function register(user: UserDto): Promise<{ id: number; jwt: string }> {
-  //TODO
-  const { id } = await userRepoPrisma.register(user);
-  return { id: id, jwt: generateJwt({ id: id, email: user.email }) };
+  await userRepoPrisma.addOne(user);
+  const registeredUser = await userRepoPrisma.getByEmail(user.email);
+
+  return {
+    id: registeredUser.id,
+    jwt: generateJwt({
+      id: registeredUser.id,
+      email: registeredUser.email,
+    }),
+  };
 }
 
 /******************************************************************************
