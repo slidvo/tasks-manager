@@ -2,8 +2,8 @@
   "name": "tasks-manager",
   "version": "0.0.0",
   "scripts": {
-    "build": "shx rm -rf dist && tsc --project tsconfig.prod.json && npm run build:copy-static && npm run build:copy-prisma && npm run lint",
-    "build:copy-prisma":"shx mkdir -p dist/generated/prisma && shx cp -r src/generated/prisma/* dist/generated/prisma",
+    "build": "shx rm -rf dist && npm run prisma:gen && tsc --project tsconfig.prod.json && npm run build:copy-static && npm run lint",
+    "prisma:gen": "prisma generate",
     "build:copy-static": "shx mkdir -p dist/public dist/views && shx cp -r src/public/* dist/public && shx cp -r src/views/* dist/views",
     "clean-install": "rm -rf ./node_modules && rm -r package-lock.json && npm i",
     "dev:basic": "cross-env DOTENV_CONFIG_PATH=./config/.env.development ts-node ./src/main",
