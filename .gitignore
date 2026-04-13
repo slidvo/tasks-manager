@@ -3,7 +3,7 @@ dist/
 **/**/*.log
 tsconfig.tsbuildinfo
 
-/generated/prisma
+src/generated/prisma
 .vscode
 
 # ignore ./config/.env.production ????

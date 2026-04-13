@@ -1,5 +1,5 @@
 import { PrismaPg } from '@prisma/adapter-pg';
-import { PrismaClient, User } from 'generated/prisma/client';
+import { PrismaClient, User } from '@src/generated/prisma/client';
 
 import { BackendError } from '@src/errors/BackendError';
 import { UserDto } from '@src/models/User.model';

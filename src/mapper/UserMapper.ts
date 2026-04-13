@@ -1,4 +1,4 @@
-import { User } from 'generated/prisma/client';
+import { User } from '@src/generated/prisma/client';
 
 import { UserDto } from '@src/models/User.model';
 
