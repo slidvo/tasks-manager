@@ -50,12 +50,13 @@ app.use((err: Error, _: Request, res: Response, next: NextFunction) => {
     let fields = err.meta?.target;
 
     if (!fields && err.meta?.driverAdapterError) {
-      fields = (err.meta.driverAdapterError as any)?.cause?.constraint?.fields;
+      fields = (err.meta.driverAdapterError as { cause?: { constraint?: { fields?: string[] } } })?.cause?.constraint?.fields;
     }
 
-    let fieldName = 'unknown';
+    let fieldName: string = 'unknown';
     if (Array.isArray(fields) && fields.length > 0) {
-      fieldName = fields[0]; // Обычно там одно поле, например "email"
+
+      fieldName = (fields as string[])[0]  // Обычно там одно поле, например "email"
     }
 
     res

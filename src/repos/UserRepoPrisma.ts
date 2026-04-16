@@ -3,6 +3,7 @@ import { PrismaClient, User } from '@src/generated/prisma/client';
 
 import { BackendError } from '@src/errors/BackendError';
 import { UserDto } from '@src/models/User.model';
+import { logger } from "@src/logger"
 
 export class UserRepoPrisma {
   private prisma: PrismaClient;
@@ -37,7 +38,7 @@ export class UserRepoPrisma {
         email: user.email,
       },
     });
-    console.log(`updated user: ${JSON.stringify(updated)}`);
+    logger.debug(`updated user: ${JSON.stringify(updated)}`);
     return updated;
   }
 

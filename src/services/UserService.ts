@@ -4,9 +4,11 @@ import { UserMapper } from '@src/mapper/UserMapper';
 import { UserDto } from '@src/models/User.model';
 import { UserRepoPrisma } from '@src/repos/UserRepoPrisma';
 import { generateJwt } from '@src/utils/jwt';
+import { envConfig } from '@src/env.config';
+import { logger } from '@src/logger';
 
 /******************************************************************************
-                                Constants
+                                 Constants
 ******************************************************************************/
 
 const Errors = {
@@ -14,10 +16,10 @@ const Errors = {
 } as const;
 
 const userRepoPrisma = new UserRepoPrisma(
-  new PrismaPg({ connectionString: process.env.DATABASE_URL_API }),
+  new PrismaPg({ connectionString: envConfig.getDatabaseUrlApi() }),
 );
 /******************************************************************************
-                                Functions
+                                 Functions
 ******************************************************************************/
 
 /**
@@ -40,7 +42,7 @@ function addOne(user: UserDto): Promise<void> {
  */
 async function updateOne(user: UserDto): Promise<void> {
   const updated = await userRepoPrisma.updateOne(user);
-  console.log(`updated = ${JSON.stringify(updated)}`);
+  logger.debug(`updated = ${JSON.stringify(updated)}`);
 }
 
 /**

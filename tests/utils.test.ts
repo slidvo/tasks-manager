@@ -1,14 +1,22 @@
-import  {generateJwt,JwtPayload} from "@src/utils/jwt"
+import { generateJwt, JwtPayload } from "@src/utils/jwt";
+import jwt from 'jsonwebtoken';
+import { logger } from "@src/logger";
+import { envConfig } from "@src/env.config";
 
-describe('generateJwt Test', ()=>{
-    it("test", ()=>{
-        const payload : JwtPayload = {
+describe('generateJwt Test', () => {
+    it("test", () => {
+        const payload: JwtPayload = {
             id: 1,
             email: 'email@email.com'
         }
 
-        const token = generateJwt(payload)
-        console.log(`token ${token}`)
-        //TODO Дописать проверку корректности токена
+        const token = generateJwt(payload);
+        logger.debug(`token ${token}`);
+
+        const secret = envConfig.getJwtSecret();
+        const decoded = jwt.verify(token, secret!) as JwtPayload;
+        
+        expect(decoded.id).toBe(payload.id);
+        expect(decoded.email).toBe(payload.email);
     })
 })

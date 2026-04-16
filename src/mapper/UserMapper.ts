@@ -11,6 +11,6 @@ export class UserMapper {
   }
 
   static toDtos(users: User[]): UserDto[] {
-    return users.map(UserMapper.toDto);
+    return users.map(u => UserMapper.toDto(u));
   }
 }
