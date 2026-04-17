@@ -3,6 +3,7 @@ import { Router } from 'express';
 import Paths from '@src/common/constants/Paths';
 
 import AuthRoutes from './AuthRoutes';
+import ProjectRoutes from './ProjectRoutes';
 import UserRoutes from './UserRoutes';
 
 /******************************************************************************
@@ -20,11 +21,18 @@ userRouter.post(Paths.Users.Add, UserRoutes.add);
 userRouter.put(Paths.Users.Update, UserRoutes.update);
 userRouter.delete(Paths.Users.Delete, UserRoutes.delete);
 
+// ----------------------- Add ProjectRouter ------------------------------ //
+
+const projectRouter = Router();
+
+projectRouter.post(Paths.Projects.Create, ProjectRoutes.createProject);
+
 // ----------------------- Add AuthRouter --------------------------------- //
 const authRouter = Router();
 
 authRouter.post(Paths.Auth.Register, AuthRoutes.register);
 //=============================================================================
+apiRouter.use(Paths.Projects._, projectRouter);
 apiRouter.use(Paths.Users._, userRouter);
 apiRouter.use(Paths.Auth._, authRouter);
 /******************************************************************************

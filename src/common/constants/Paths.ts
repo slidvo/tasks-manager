@@ -6,6 +6,10 @@ const Paths = {
     _: '/auth',
     Register: '/register'
   },
+  Projects: {
+    _: '/projects',
+    Create: '/',
+  },
   Users: {
     _: '/users',
     Get: '/all',

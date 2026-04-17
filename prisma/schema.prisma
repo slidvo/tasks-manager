@@ -22,3 +22,10 @@ model User {
   email String  @unique
   name  String?
 }
+
+model Project {
+  id          Int    @id @default(autoincrement())
+  uuid String @unique @default(uuid())
+  name        String
+  description String?
+}
