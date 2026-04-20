@@ -26,6 +26,7 @@ userRouter.delete(Paths.Users.Delete, UserRoutes.delete);
 const projectRouter = Router();
 
 projectRouter.post(Paths.Projects.Create, ProjectRoutes.createProject);
+projectRouter.post(Paths.Projects.AddTask, ProjectRoutes.addTask);
 
 // ----------------------- Add AuthRouter --------------------------------- //
 const authRouter = Router();

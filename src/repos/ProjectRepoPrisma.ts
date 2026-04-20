@@ -1,7 +1,8 @@
 import { PrismaPg } from '@prisma/adapter-pg';
-import { PrismaClient, Project } from '@src/generated/prisma/client';
+import { PrismaClient, Project, Task } from '@src/generated/prisma/client';
 
 import { ProjectDto } from '@src/models/Project.model';
+import { TaskDto } from '@src/models/Task.model';
 
 export class ProjectRepoPrisma {
   private prisma: PrismaClient;
@@ -15,6 +16,17 @@ export class ProjectRepoPrisma {
       data: {
         name: project.name,
         description: project.description,
+      },
+    });
+  }
+
+  async addTask(projectId: number, task: TaskDto): Promise<Task> {
+    return this.prisma.task.create({
+      data: {
+        name: task.name,
+        description: task.description,
+        deadline: task.deadline,
+        projectId,
       },
     });
   }

@@ -28,4 +28,15 @@ model Project {
   uuid String @unique @default(uuid())
   name        String
   description String?
+  tasks       Task[]
+}
+
+model Task {
+  id          Int      @id @default(autoincrement())
+  uuid        String   @unique @default(uuid())
+  name        String
+  description String?
+  deadline    DateTime
+  projectId   Int
+  project     Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
 }

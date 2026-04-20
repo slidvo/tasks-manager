@@ -2,6 +2,7 @@ import { PrismaPg } from '@prisma/adapter-pg';
 
 import { envConfig } from '@src/env.config';
 import { ProjectDto } from '@src/models/Project.model';
+import { TaskDto } from '@src/models/Task.model';
 import { ProjectRepoPrisma } from '@src/repos/ProjectRepoPrisma';
 
 /******************************************************************************
@@ -28,10 +29,24 @@ async function createProject(project: ProjectDto): Promise<ProjectDto> {
   };
 }
 
+/**
+ * Add one task to project.
+ */
+async function addTask(projectId: number, task: TaskDto): Promise<TaskDto> {
+  const createdTask = await projectRepoPrisma.addTask(projectId, task);
+
+  return {
+    name: createdTask.name,
+    description: createdTask.description ?? undefined,
+    deadline: createdTask.deadline,
+  };
+}
+
 /******************************************************************************
                                 Export default
 ******************************************************************************/
 
 export default {
   createProject,
+  addTask,
 } as const;

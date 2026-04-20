@@ -9,6 +9,7 @@ const Paths = {
   Projects: {
     _: '/projects',
     Create: '/',
+    AddTask: '/:projectId/tasks',
   },
   Users: {
     _: '/users',
