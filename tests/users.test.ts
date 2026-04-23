@@ -3,7 +3,7 @@ import request from 'supertest'
 import { logger } from '@src/logger'
 import app from "@src/server"
 import { User } from "@src/generated/prisma/client"
-
+// 38747054+slidvo@users.noreply.github.com
 const { getAllMock } = vi.hoisted(() => {
     return {
         getAllMock: vi.fn().mockResolvedValue([{
