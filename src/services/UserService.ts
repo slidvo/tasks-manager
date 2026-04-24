@@ -3,7 +3,6 @@ import { PrismaPg } from '@prisma/adapter-pg';
 import { UserMapper } from '@src/mapper/UserMapper';
 import { UserDto } from '@src/models/User.model';
 import { UserRepoPrisma } from '@src/repos/UserRepoPrisma';
-import { generateJwt } from '@src/utils/jwt';
 import { envConfig } from '@src/env.config';
 import { logger } from '@src/logger';
 
@@ -52,19 +51,6 @@ async function deleteOne(id: number): Promise<void> {
   //TODO
 }
 
-async function register(user: UserDto): Promise<{ id: number; jwt: string }> {
-  await userRepoPrisma.addOne(user);
-  const registeredUser = await userRepoPrisma.getByEmail(user.email);
-
-  return {
-    id: registeredUser.id,
-    jwt: generateJwt({
-      id: registeredUser.id,
-      email: registeredUser.email,
-    }),
-  };
-}
-
 /******************************************************************************
                                 Export default
 ******************************************************************************/
@@ -75,5 +61,4 @@ export default {
   addOne,
   updateOne,
   delete: deleteOne,
-  register,
 } as const;

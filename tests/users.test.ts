@@ -1,49 +1,18 @@
+import { UserRepoPrismaMock, resetUserRepoPrismaMock } from './mocks/UserRepoPrisma.mock'
 import { describe, it, expect, vi } from 'vitest'
 import request from 'supertest'
 import { logger } from '@src/logger'
 import app from "@src/server"
-import { User } from "@src/generated/prisma/client"
-// 38747054+slidvo@users.noreply.github.com
-const { getAllMock } = vi.hoisted(() => {
-    return {
-        getAllMock: vi.fn().mockResolvedValue([{
-            id: 1,
-            email: "mail@mail.ru",
-            uuid: "d3d23hd82hf298fh948fh948f3h"
-        }])
-    }
-})
-
-const { addOneMock } = vi.hoisted(() => {
-    return {
-        addOneMock: vi.fn()
-    }
-})
-
-const { updateOneMock } = vi.hoisted(() => {
-    return {
-        updateOneMock: vi.fn().mockResolvedValue(
-            {
-                "name": "Женя Потапов",
-                "id": 1,
-                "uuid": "d3d23hd82hf298fh948fh948f3h",
-                "email": "potapovpro@mail.ru"
-
-            } as User
-        )
-    }
-})
 
 vi.mock('@src/repos/UserRepoPrisma', () => {
     return {
-        UserRepoPrisma: class {
-            getAll = getAllMock
-            addOne = addOneMock
-            updateOne = updateOneMock
-        }
+        UserRepoPrisma: UserRepoPrismaMock
     }
 })
 
+beforeEach(() => {
+    resetUserRepoPrismaMock()
+})
 
 describe('GET /api/users/all', () => {
     it("should return array of users", async () => {
