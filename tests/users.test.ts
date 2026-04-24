@@ -1,7 +1,6 @@
 import { UserRepoPrismaMock, resetUserRepoPrismaMock } from './mocks/UserRepoPrisma.mock'
 import { describe, it, expect, vi } from 'vitest'
 import request from 'supertest'
-import { logger } from '@src/logger'
 import app from "@src/server"
 
 vi.mock('@src/repos/UserRepoPrisma', () => {
@@ -17,7 +16,6 @@ beforeEach(() => {
 describe('GET /api/users/all', () => {
     it("should return array of users", async () => {
         const res = await request(app).get("/api/users/all")
-        logger.debug(`GET /api/users/all response: ${JSON.stringify(res)}`)
         expect(res.status).toBe(200)
         expect(res.body).toEqual({
             "users": [
@@ -41,7 +39,6 @@ describe('POST /api/users/add', () => {
                 }
             })
 
-        logger.debug(`POST /api/users/add response: ${JSON.stringify(res)}`)
         expect(res.status).toBe(201)
     })
 
@@ -58,7 +55,6 @@ describe('POST /api/users/update', () => {
                 }
             })
 
-        logger.debug(`POST /api/users/update response: ${JSON.stringify(res)}`)
         expect(res.status).toBe(200)
     })
 
@@ -68,7 +64,6 @@ describe('DELETE /api/users/delete/:id', () => {
     it("should return http status 200", async () => {
         const res = await request(app).delete("/api/users/delete/1")
 
-        logger.debug(`DELETE /api/users/delete/1 response: ${JSON.stringify(res)}`)
         expect(res.status).toBe(200)
     })
 
