@@ -1,0 +1,41 @@
+@baseUrl = http://localhost:3000
+### Запрос на получение всех пользователей из API. Ответ содержит массив объектов с именами и email-адресами пользователей.
+GET {{baseUrl}}/api/users/all
+# Добавить хедер Bearer JWT-TOKEN когда реализую авторизацию
+
+# HTTP/1.1 200 OK
+# X-Powered-By: Express
+# Content-Type: application/json; charset=utf-8
+# Content-Length: 209
+# ETag: W/"d1-F+nhn0d/DodDyPIO5sS4pLGRBHs"
+# Date: Sat, 25 Apr 2026 03:19:38 GMT
+# Connection: close
+
+# {
+#   "users": [
+#     {
+#       "name": "Женя Потапов",
+#       "email": "potapovpro@mail.ru"
+#     },
+#     {
+#       "name": "Женя Потапов 1",
+#       "email": "potapovpro1@mail.ru"
+#     },
+#     {
+#       "name": "Женя Потапов 1",
+#       "email": "potapovpro2@mail.ru"
+#     }
+#   ]
+# }
+
+### Запрос на добавление проекта в БД
+POST {{baseUrl}}/api/projects
+# Добавить хедер Bearer JWT-TOKEN когда реализую авторизацию
+Content-Type: application/json
+
+{
+	"project": {
+		"name": "Новый проект",
+		"description": "Описание нового проекта"
+	}
+}
