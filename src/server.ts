@@ -61,7 +61,7 @@ app.use((err: Error, _: Request, res: Response, next: NextFunction) => {
 
     res
       .status(500)
-      .json({ error: `Пользователь с таким ${fieldName} уже существует` });
+      .json({ error: `Запись с таким ${fieldName} уже существует` });
   }
 
   if (err instanceof BackendError) {
