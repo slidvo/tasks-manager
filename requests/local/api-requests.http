@@ -39,3 +39,7 @@ Content-Type: application/json
 		"description": "Описание нового проекта"
 	}
 }
+
+### Запрос назначение исполнителя задачи
+PUT {{baseUrl}}/api/tasks/1/assign
+Authorization: Bearer AAAAAAAAAAAAAAAAAA

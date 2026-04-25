@@ -5,6 +5,7 @@ import Paths from '@src/common/constants/Paths';
 import AuthRoutes from './AuthRoutes';
 import ProjectRoutes from './ProjectRoutes';
 import UserRoutes from './UserRoutes';
+import TasksRoutes from './TasksRoutes';
 
 /******************************************************************************
                                 Setup
@@ -32,10 +33,16 @@ projectRouter.post(Paths.Projects.AddTask, ProjectRoutes.addTask);
 const authRouter = Router();
 
 authRouter.post(Paths.Auth.Register, AuthRoutes.register);
+
+// ----------------------- Add TasksRouter --------------------------------- //
+const tasksRouter = Router()
+tasksRouter.put(Paths.Tasks.Assign, TasksRoutes.assign);
+
 //=============================================================================
 apiRouter.use(Paths.Projects._, projectRouter);
 apiRouter.use(Paths.Users._, userRouter);
 apiRouter.use(Paths.Auth._, authRouter);
+apiRouter.use(Paths.Tasks._, tasksRouter)
 /******************************************************************************
                                 Export
 ******************************************************************************/
