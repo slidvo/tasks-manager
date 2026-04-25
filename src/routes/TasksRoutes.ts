@@ -11,7 +11,7 @@ import { logger } from '@src/logger';
  */
 async function assign(req: Req, res: Res) {
     //TODO Implemet! Add TasksService 
-    const jwt = req.header("Authorization")
+    const jwt = req.header("Authorization")!.split(" ")[1]
     logger.debug(`JWT=${jwt}`)
     res.status(HttpStatusCodes.OK).json({ "jwt": jwt, "taskId": req.params["taskId"] })
 }
