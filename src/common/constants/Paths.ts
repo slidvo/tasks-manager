@@ -21,7 +21,8 @@ const Paths = {
   },
   Tasks: {
     _: '/tasks',
-    Assign: '/:taskId/assign'
+    Assign: '/:taskId/assign',
+    Status: '/:taskId/status'
   }
 } as const;
 
