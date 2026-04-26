@@ -42,4 +42,4 @@ Content-Type: application/json
 
 ### Запрос назначение исполнителя задачи
 PUT {{baseUrl}}/api/tasks/1/assign
-Authorization: Bearer AAAAAAAAAAAAAAAAAA
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJlbWFpbEBlbWFpbC5jb20iLCJpYXQiOjE3NzcxODM2MTEsImV4cCI6MTc3NzE4NzIxMX0.MT_wk1y-xQoqD3nanvOHJ9MjpCZstEZNO7bTxq5NMCM

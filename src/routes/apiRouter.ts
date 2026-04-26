@@ -1,11 +1,11 @@
 import { Router } from 'express';
-
 import Paths from '@src/common/constants/Paths';
 
 import AuthRoutes from './AuthRoutes';
 import ProjectRoutes from './ProjectRoutes';
 import UserRoutes from './UserRoutes';
 import TasksRoutes from './TasksRoutes';
+import { authMiddleware } from '@src/utils/middlewares';
 
 /******************************************************************************
                                 Setup
@@ -36,7 +36,7 @@ authRouter.post(Paths.Auth.Register, AuthRoutes.register);
 
 // ----------------------- Add TasksRouter --------------------------------- //
 const tasksRouter = Router()
-tasksRouter.put(Paths.Tasks.Assign, TasksRoutes.assign);
+tasksRouter.put(Paths.Tasks.Assign, authMiddleware, TasksRoutes.assign);
 
 //=============================================================================
 apiRouter.use(Paths.Projects._, projectRouter);

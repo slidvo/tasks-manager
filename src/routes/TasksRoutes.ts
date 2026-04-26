@@ -4,16 +4,16 @@ import HttpStatusCodes from '@src/common/constants/HttpStatusCodes';
 import { Req, Res } from './common/express-types';
 import parseReq from './common/parseReq';
 import { logger } from '@src/logger';
+import TasksService from '@src/services/TasksService';
+
 
 /**
  * Assign task performer
  * @route PUT /api/tasks/:taskId/assign 
  */
 async function assign(req: Req, res: Res) {
-    //TODO Implemet! Add TasksService 
-    const jwt = req.header("Authorization")!.split(" ")[1]
-    logger.debug(`JWT=${jwt}`)
-    res.status(HttpStatusCodes.OK).json({ "jwt": jwt, "taskId": req.params["taskId"] })
+    await TasksService.assign(req, res);
+    res.status(HttpStatusCodes.OK).end()
 }
 
 
