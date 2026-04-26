@@ -33,6 +33,7 @@ projectRouter.post(Paths.Projects.AddTask, authMiddleware, ProjectRoutes.addTask
 const authRouter = Router();
 
 authRouter.post(Paths.Auth.Register, AuthRoutes.register);
+authRouter.post(Paths.Auth.Login, AuthRoutes.login);
 
 // ----------------------- Add TasksRouter --------------------------------- //
 const tasksRouter = Router()

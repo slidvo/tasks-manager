@@ -42,4 +42,13 @@ Content-Type: application/json
 
 ### Запрос назначение исполнителя задачи
 PUT {{baseUrl}}/api/tasks/1/assign
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJwb3RhcG92cHJvQG1haWwucnUiLCJpYXQiOjE3NzcxOTEwOTksImV4cCI6MTc3NzE5NDY5OX0.98a2pN8_ntJY79E3njYxEK_4YDdoRrYOLh6hExyNDmY
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJwb3RhcG92cHJvQG1haWwucnUiLCJpYXQiOjE3NzcyMjE0NDQsImV4cCI6MTc3NzIyNTA0NH0.Ne_pgYeYyUoiPQn_-SNaPqL2YjcDg9KJoghk17aljkA
+
+### Запрос на вход в систему 
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "potapovpro@mail.ru",
+  "password": "secret"
+}

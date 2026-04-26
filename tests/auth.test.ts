@@ -36,3 +36,18 @@ describe("POST /api/auth/register", () => {
         expect(typeof body.jwt).toBe('string')
     })
 })
+
+describe('POST /api/auth/login', () => {
+
+    it('should return jwt for existing user', async () => {
+        const res = await request(app)
+            .post('/api/auth/login')
+            .send({
+                email: 'potapovpro@mail.ru',
+                password: 'any-password',
+            })
+
+        expect(res.status).toBe(200)
+        expect(typeof res.body.jwt).toBe('string')
+    })
+})

@@ -4,7 +4,8 @@ const Paths = {
   _: '/api',
   Auth: {
     _: '/auth',
-    Register: '/register'
+    Register: '/register',
+    Login: '/login',
   },
   Projects: {
     _: '/projects',
