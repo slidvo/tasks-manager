@@ -3,6 +3,16 @@ import { describe, it, expect, vi } from 'vitest'
 import request from 'supertest'
 import app from "@src/server"
 import { addTaskMock, createProjectMock } from './mocks/ProjectRepoPrisma.mock'
+import jwt from "jsonwebtoken"
+import { envConfig } from '@src/env.config'
+
+const payload = {
+    userId: 12345,
+    username: 'john_doe',
+    role: 'admin'
+};
+
+const token = jwt.sign(payload, envConfig.getJwtSecret()!)
 
 vi.mock('@src/repos/ProjectRepoPrisma', () => {
     return {
@@ -18,6 +28,7 @@ describe('POST /api/projects/', () => {
     it('should create project and return http status 201', async () => {
         const res = await request(app)
             .post('/api/projects/')
+            .set("Authorization", `Bearer ${token}`)
             .send({
                 project: {
                     name: 'Project Alpha',
@@ -45,6 +56,7 @@ describe('POST /api/projects/:projectId/tasks', () => {
 
         const res = await request(app)
             .post('/api/projects/1/tasks')
+            .set("Authorization", `Bearer ${token}`)
             .send({
                 task: {
                     name: 'Task Alpha',

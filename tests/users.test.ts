@@ -2,6 +2,16 @@ import { UserRepoPrismaMock, resetUserRepoPrismaMock } from './mocks/UserRepoPri
 import { describe, it, expect, vi } from 'vitest'
 import request from 'supertest'
 import app from "@src/server"
+import jwt from "jsonwebtoken"
+import { envConfig } from '@src/env.config'
+
+const payload = {
+    userId: 12345,
+    username: 'john_doe',
+    role: 'admin'
+};
+
+const token = jwt.sign(payload, envConfig.getJwtSecret()!)
 
 vi.mock('@src/repos/UserRepoPrisma', () => {
     return {
@@ -15,7 +25,9 @@ beforeEach(() => {
 
 describe('GET /api/users/all', () => {
     it("should return array of users", async () => {
-        const res = await request(app).get("/api/users/all")
+        const res = await request(app)
+            .get("/api/users/all")
+            .set("Authorization", `Bearer ${token}`)
         expect(res.status).toBe(200)
         expect(res.body).toEqual({
             "users": [
@@ -32,6 +44,7 @@ describe('POST /api/users/add', () => {
     it("should return http status 201", async () => {
         const res = await request(app)
             .post("/api/users/add")
+            .set("Authorization", `Bearer ${token}`)
             .send({
                 "user": {
                     "name": "Женя Потапов",
@@ -48,6 +61,7 @@ describe('POST /api/users/update', () => {
     it("should return http status 200", async () => {
         const res = await request(app)
             .put("/api/users/update")
+            .set("Authorization", `Bearer ${token}`)
             .send({
                 "user": {
                     "name": "Женя Потапов",
@@ -62,7 +76,9 @@ describe('POST /api/users/update', () => {
 
 describe('DELETE /api/users/delete/:id', () => {
     it("should return http status 200", async () => {
-        const res = await request(app).delete("/api/users/delete/1")
+        const res = await request(app)
+            .delete("/api/users/delete/1")
+            .set("Authorization", `Bearer ${token}`)
 
         expect(res.status).toBe(200)
     })

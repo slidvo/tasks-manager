@@ -17,17 +17,17 @@ const apiRouter = Router();
 
 const userRouter = Router();
 
-userRouter.get(Paths.Users.Get, UserRoutes.getAll);
-userRouter.post(Paths.Users.Add, UserRoutes.add);
-userRouter.put(Paths.Users.Update, UserRoutes.update);
-userRouter.delete(Paths.Users.Delete, UserRoutes.delete);
+userRouter.get(Paths.Users.Get, authMiddleware, UserRoutes.getAll);
+userRouter.post(Paths.Users.Add, authMiddleware, UserRoutes.add);
+userRouter.put(Paths.Users.Update, authMiddleware, UserRoutes.update);
+userRouter.delete(Paths.Users.Delete, authMiddleware, UserRoutes.delete);
 
 // ----------------------- Add ProjectRouter ------------------------------ //
 
 const projectRouter = Router();
 
-projectRouter.post(Paths.Projects.Create, ProjectRoutes.createProject);
-projectRouter.post(Paths.Projects.AddTask, ProjectRoutes.addTask);
+projectRouter.post(Paths.Projects.Create, authMiddleware, ProjectRoutes.createProject);
+projectRouter.post(Paths.Projects.AddTask, authMiddleware, ProjectRoutes.addTask);
 
 // ----------------------- Add AuthRouter --------------------------------- //
 const authRouter = Router();
