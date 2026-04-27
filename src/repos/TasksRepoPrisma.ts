@@ -1,8 +1,5 @@
 import { PrismaPg } from '@prisma/adapter-pg';
-import { PrismaClient, Project, Task } from '@src/generated/prisma/client';
-
-import { ProjectDto } from '@src/models/Project.model';
-import { TaskDto } from '@src/models/Task.model';
+import { PrismaClient, Task, TaskStatus } from '@src/generated/prisma/client';
 
 export class TasksRepoPrisma {
     private prisma: PrismaClient;
@@ -32,5 +29,22 @@ export class TasksRepoPrisma {
                 id: id,
             },
         }) as Promise<Task>;
+    }
+
+    async updateStatus(taskId: number, status: TaskStatus): Promise<Task> {
+        const task = await this.findById(taskId);
+        if (!task) {
+            throw new Error(`Task with id ${taskId} not found`);
+        }
+
+        return this.prisma.task.update({
+            where: {
+                id: taskId,
+            },
+            data: {
+                status,
+                completed_at: status === TaskStatus.DONE ? new Date() : null,
+            },
+        });
     }
 }

@@ -38,6 +38,7 @@ authRouter.post(Paths.Auth.Login, AuthRoutes.login);
 // ----------------------- Add TasksRouter --------------------------------- //
 const tasksRouter = Router()
 tasksRouter.put(Paths.Tasks.Assign, authMiddleware, TasksRoutes.assign);
+tasksRouter.patch(Paths.Tasks.Status, authMiddleware, TasksRoutes.updateStatus);
 
 //=============================================================================
 apiRouter.use(Paths.Projects._, projectRouter);
@@ -45,7 +46,7 @@ apiRouter.use(Paths.Users._, userRouter);
 apiRouter.use(Paths.Auth._, authRouter);
 apiRouter.use(Paths.Tasks._, tasksRouter)
 /******************************************************************************
-                                Export
-******************************************************************************/
+                                 Export
+ ******************************************************************************/
 
 export default apiRouter;

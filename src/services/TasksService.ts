@@ -1,5 +1,6 @@
 import { PrismaPg } from "@prisma/adapter-pg";
 import { envConfig } from "@src/env.config";
+import { TaskStatus } from "@src/generated/prisma/client";
 import { TasksRepoPrisma } from "@src/repos/TasksRepoPrisma";
 import { Req, Res } from "@src/routes/common/express-types";
 
@@ -18,6 +19,20 @@ async function assign(req: Req, res: Res): Promise<void> {
     //TODO: Реализовать логику назначения исполнителя для задачи с id = taskId, пользователю с id = userId
 }
 
+/**
+ * Обновление статуса задачи
+ */
+async function updateStatus(taskId: number, status: TaskStatus) {
+    const updatedTask = await tasksRepoPrisma.updateStatus(taskId, status);
+
+    return {
+        id: updatedTask.id,
+        status: updatedTask.status,
+        completed_at: updatedTask.completed_at ?? undefined,
+    };
+}
+
 export default {
-    assign
+    assign,
+    updateStatus
 } as const

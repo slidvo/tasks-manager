@@ -42,7 +42,7 @@ Content-Type: application/json
 
 ### Запрос назначение исполнителя задачи
 PUT {{baseUrl}}/api/tasks/1/assign
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJwb3RhcG92cHJvQG1haWwucnUiLCJpYXQiOjE3NzcyMjE0NDQsImV4cCI6MTc3NzIyNTA0NH0.Ne_pgYeYyUoiPQn_-SNaPqL2YjcDg9KJoghk17aljkA
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJwb3RhcG92cHJvQG1haWwucnUiLCJpYXQiOjE3NzcyNjMxNjgsImV4cCI6MTc3NzI2Njc2OH0.8sPELSZwmUkWdBFCkjenzzRm3kKvXwW_SnoZzySckXA
 
 ### Запрос на вход в систему 
 POST {{baseUrl}}/api/auth/login
@@ -51,4 +51,13 @@ Content-Type: application/json
 {
   "email": "potapovpro@mail.ru",
   "password": "secret"
+}
+
+### 
+PATCH {{baseUrl}}/api/tasks/1/status
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJwb3RhcG92cHJvQG1haWwucnUiLCJpYXQiOjE3NzcyNjMxNjgsImV4cCI6MTc3NzI2Njc2OH0.8sPELSZwmUkWdBFCkjenzzRm3kKvXwW_SnoZzySckXA
+Content-Type: application/json
+
+{
+  "status": "IN_PROGRESS"
 }
