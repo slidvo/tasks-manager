@@ -14,10 +14,10 @@ export class TasksRepoPrisma {
         }
 
         await this.prisma.task.update({
-            where:{
+            where: {
                 id: taskId,
-            }, 
-            data:{
+            },
+            data: {
                 userId: userId,
             }
         })
@@ -44,6 +44,7 @@ export class TasksRepoPrisma {
             data: {
                 status,
                 completed_at: status === TaskStatus.DONE ? new Date() : null,
+                spent_time: status === TaskStatus.DONE && task.created_at ? Math.floor((Date.now() - task.created_at.getTime()) / 1000 / 60) : null,
             },
         });
     }
