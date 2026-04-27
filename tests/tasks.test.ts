@@ -28,7 +28,7 @@ describe('PATCH /api/tasks/:taskId/status', () => {
             })
 
         expect(res.status).toBe(200)
-        expect(updateStatusMock).toHaveBeenCalledWith(1, TaskStatus.DONE)
+        expect(updateStatusMock).toHaveBeenCalledWith(1, 12345, TaskStatus.DONE)
         expect(res.body).toEqual({
             task: {
                 id: 1,

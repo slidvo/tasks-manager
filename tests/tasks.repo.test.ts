@@ -1,16 +1,14 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
-
-const findUniqueMock = vi.fn()
-const updateMock = vi.fn()
+import {
+    findUniqueMock,
+    PrismaClientMock,
+    resetPrismaClientMock,
+    updateManyMock,
+} from './mocks/PrismaClient.mock'
 
 vi.mock('@src/generated/prisma/client', () => {
     return {
-        PrismaClient: class {
-            task = {
-                findUnique: findUniqueMock,
-                update: updateMock,
-            }
-        },
+        PrismaClient: PrismaClientMock,
         TaskStatus: {
             CREATED: 'CREATED',
             IN_PROGRESS: 'IN_PROGRESS',
@@ -21,8 +19,7 @@ vi.mock('@src/generated/prisma/client', () => {
 
 describe('TasksRepoPrisma.updateStatus', () => {
     beforeEach(() => {
-        findUniqueMock.mockReset()
-        updateMock.mockReset()
+        resetPrismaClientMock()
     })
 
     afterEach(() => {
@@ -33,27 +30,34 @@ describe('TasksRepoPrisma.updateStatus', () => {
         vi.useFakeTimers()
         vi.setSystemTime(new Date('2026-04-27T05:30:00.000Z'))
 
-        findUniqueMock.mockResolvedValue({
-            id: 1,
-            created_at: new Date('2026-04-27T04:00:00.000Z'),
-        })
-
-        updateMock.mockResolvedValue({
-            id: 1,
-            status: 'DONE',
-            completed_at: new Date('2026-04-27T05:30:00.000Z'),
-            spent_time: 90,
-        })
-
         const { TasksRepoPrisma } = await import('@src/repos/TasksRepoPrisma')
         const { TaskStatus } = await import('@src/generated/prisma/client')
         const repo = new TasksRepoPrisma({} as never)
 
-        await repo.updateStatus(1, TaskStatus.DONE)
+        updateManyMock.mockResolvedValue({
+            count: 1,
+        })
 
-        expect(updateMock).toHaveBeenCalledWith({
+        findUniqueMock
+            .mockResolvedValueOnce({
+                id: 1,
+                userId: 1,
+                created_at: new Date('2026-04-27T04:00:00.000Z'),
+            })
+            .mockResolvedValueOnce({
+                id: 1,
+                userId: 1,
+                status: 'DONE',
+                completed_at: new Date('2026-04-27T05:30:00.000Z'),
+                spent_time: 90,
+            })
+        
+        await repo.updateStatus(1, 1, TaskStatus.DONE)
+
+        expect(updateManyMock).toHaveBeenCalledWith({
             where: {
                 id: 1,
+                userId: 1,
             },
             data: {
                 status: TaskStatus.DONE,
@@ -61,5 +65,25 @@ describe('TasksRepoPrisma.updateStatus', () => {
                 spent_time: 90,
             },
         })
+    })
+
+    it('should throw error when user is not task performer', async () => {
+        const { TasksRepoPrisma } = await import('@src/repos/TasksRepoPrisma')
+        const { TaskStatus } = await import('@src/generated/prisma/client')
+        const repo = new TasksRepoPrisma({} as never)
+
+        findUniqueMock.mockResolvedValueOnce({
+            id: 1,
+            userId: 2,
+            created_at: new Date('2026-04-27T04:00:00.000Z'),
+        })
+
+        updateManyMock.mockResolvedValue({
+            count: 0,
+        })
+
+        await expect(repo.updateStatus(1, 1, TaskStatus.DONE)).rejects.toThrow(
+            'User with id 1 cannot update task with id 1',
+        )
     })
 })

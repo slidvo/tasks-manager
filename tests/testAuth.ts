@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 
 export const testAuthPayload = {
-  userId: 12345,
+  id: 12345,
   username: 'john_doe',
   role: 'admin',
 } as const;

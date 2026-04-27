@@ -22,8 +22,8 @@ async function assign(req: Req, res: Res): Promise<void> {
 /**
  * Обновление статуса задачи
  */
-async function updateStatus(taskId: number, status: TaskStatus) {
-    const updatedTask = await tasksRepoPrisma.updateStatus(taskId, status);
+async function updateStatus(taskId: number, userId: number, status: TaskStatus) {
+    const updatedTask = await tasksRepoPrisma.updateStatus(taskId, userId, status);
 
     return {
         id: updatedTask.id,

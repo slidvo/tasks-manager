@@ -31,21 +31,33 @@ export class TasksRepoPrisma {
         }) as Promise<Task>;
     }
 
-    async updateStatus(taskId: number, status: TaskStatus): Promise<Task> {
+    async updateStatus(taskId: number, userId: number, status: TaskStatus): Promise<Task> {
         const task = await this.findById(taskId);
         if (!task) {
             throw new Error(`Task with id ${taskId} not found`);
         }
 
-        return this.prisma.task.update({
+        const completedAt = status === TaskStatus.DONE ? new Date() : null;
+        const spentTime = status === TaskStatus.DONE && task.created_at
+            ? Math.floor((Date.now() - task.created_at.getTime()) / 1000 / 60)
+            : null;
+
+        const result = await this.prisma.task.updateMany({
             where: {
                 id: taskId,
+                userId: userId,
             },
             data: {
                 status,
-                completed_at: status === TaskStatus.DONE ? new Date() : null,
-                spent_time: status === TaskStatus.DONE && task.created_at ? Math.floor((Date.now() - task.created_at.getTime()) / 1000 / 60) : null,
+                completed_at: completedAt,
+                spent_time: spentTime,
             },
         });
+
+        if (result.count === 0) {
+            throw new Error(`User with id ${userId} cannot update task with id ${taskId}`);
+        }
+
+        return this.findById(taskId);
     }
 }

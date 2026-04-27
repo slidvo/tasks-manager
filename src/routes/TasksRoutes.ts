@@ -36,7 +36,9 @@ async function updateStatus(req: Req, res: Res) {
         ...req.body,
     });
 
-    const updatedTask = await TasksService.updateStatus(taskId, <TaskStatus>status);
+    const { id: userId } = (req as any).user;
+
+    const updatedTask = await TasksService.updateStatus(taskId, userId, <TaskStatus>status);
 
     res.status(HttpStatusCodes.OK).json({ task: updatedTask });
 }
