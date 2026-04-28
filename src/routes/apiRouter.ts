@@ -28,6 +28,7 @@ const projectRouter = Router();
 
 projectRouter.post(Paths.Projects.Create, authMiddleware, ProjectRoutes.createProject);
 projectRouter.post(Paths.Projects.AddTask, authMiddleware, ProjectRoutes.addTask);
+projectRouter.get(Paths.Projects.ProjectsInfo, authMiddleware, ProjectRoutes.getProjectsInfo);
 
 // ----------------------- Add AuthRouter --------------------------------- //
 const authRouter = Router();

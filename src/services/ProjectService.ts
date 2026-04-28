@@ -4,6 +4,7 @@ import { envConfig } from '@src/env.config';
 import { ProjectDto } from '@src/models/Project.model';
 import { TaskDto } from '@src/models/Task.model';
 import { ProjectRepoPrisma } from '@src/repos/ProjectRepoPrisma';
+import { ProjectsInfoResponse } from '@src/utils/types';
 
 /******************************************************************************
                                  Constants
@@ -42,6 +43,11 @@ async function addTask(projectId: number, task: TaskDto): Promise<TaskDto> {
   };
 }
 
+async function getProjectsInfo(userId: number): Promise<ProjectsInfoResponse> {
+  const projectsInfo = await projectRepoPrisma.getProjectsInfo(userId);
+  return projectsInfo;
+}
+
 /******************************************************************************
                                 Export default
 ******************************************************************************/
@@ -49,4 +55,5 @@ async function addTask(projectId: number, task: TaskDto): Promise<TaskDto> {
 export default {
   createProject,
   addTask,
+  getProjectsInfo
 } as const;

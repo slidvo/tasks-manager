@@ -10,6 +10,7 @@ const Paths = {
   Projects: {
     _: '/projects',
     Create: '/',
+    ProjectsInfo: "/info",
     AddTask: '/:projectId/tasks',
   },
   Users: {

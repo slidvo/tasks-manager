@@ -18,6 +18,7 @@ model User {
   email String  @unique
   name  String?
   tasks Task[]
+  projects Project[]
 }
 
 model Project {
@@ -26,6 +27,8 @@ model Project {
   name        String  @unique
   description String?
   tasks       Task[]
+  ownerId     Int?
+  owner       User?   @relation(fields: [ownerId], references: [id], onDelete: SetNull)
 }
 
 enum TaskStatus {

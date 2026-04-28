@@ -61,3 +61,7 @@ Content-Type: application/json
 {
   "status": "IN_PROGRESS"
 }
+
+###
+GET {{baseUrl}}/api/projects/info
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJwb3RhcG92cHJvQG1haWwucnUiLCJpYXQiOjE3NzczNDkzMDAsImV4cCI6MTc3NzM1MjkwMH0.lPZHnplTltJ0qC0IWFtH_RPFLbejXCfQDgowV8tuFTs
