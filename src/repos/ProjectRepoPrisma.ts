@@ -46,7 +46,7 @@ export class ProjectRepoPrisma {
         },
       },
     });
-
+    //TODO Move mapping to service layer
     return projectsInfo.map((project) => ({
       id: project.id,
       name: project.name,

@@ -18,6 +18,7 @@ model User {
   email String  @unique
   name  String?
   tasks Task[]
+  timeSheets TimeSheet[]
   projects Project[]
 }
 
@@ -37,6 +38,7 @@ enum TaskStatus {
   DONE
 }
 
+//TODO Remove spent_time, use timeSheets for calculating spent time
 model Task {
   id           Int        @id @default(autoincrement())
   uuid         String     @unique @default(uuid())
@@ -51,4 +53,18 @@ model Task {
   project      Project    @relation(fields: [projectId], references: [id], onDelete: Cascade)
   userId       Int?
   user         User?      @relation(fields: [userId], references: [id], onDelete: SetNull)
+  timeSheets   TimeSheet[]
+}
+
+
+model TimeSheet {
+  id         Int      @id @default(autoincrement())
+  spent_time Int?
+  date       DateTime @default(now())
+  userId     Int
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  taskId     Int
+  task       Task     @relation(fields: [taskId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, taskId])
 }
