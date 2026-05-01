@@ -7,7 +7,7 @@ describe('generateJwt Test', () => {
     it("test", () => {
         const payload: JwtPayload = {
             id: 1,
-            email: 'email@email.com'
+            email: 'potapovpro@mail.ru'
         }
 
         const token = generateJwt(payload);

@@ -5,7 +5,7 @@ import { UserRepoPrisma } from '@src/repos/UserRepoPrisma';
 import { generateJwt } from '@src/utils/jwt';
 import { envConfig } from '@src/env.config';
 import { logger } from '@src/logger';
-import { RegisterResponse } from '@src/utils/types';
+import { LoginResponse, RegisterResponse } from '@src/utils/types';
 
 const userRepoPrisma = new UserRepoPrisma(
     new PrismaPg({ connectionString: envConfig.getDatabaseUrlApi() }),
@@ -24,7 +24,19 @@ async function register(user: UserDto): Promise<RegisterResponse> {
     };
 }
 
+async function login(email: string): Promise<LoginResponse> {
+    const user = await userRepoPrisma.getByEmail(email);
+    logger.debug(`login user = ${JSON.stringify({ id: user.id, email: user.email })}`);
+    return {
+        jwt: generateJwt({
+            id: user.id,
+            email: user.email,
+        }),
+    };
+}
+
 
 export default {
     register,
+    login,
 } as const;

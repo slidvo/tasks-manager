@@ -2,7 +2,11 @@ import { ProjectRepoPrismaMock, resetProjectRepoPrismaMock } from './mocks/Proje
 import { describe, it, expect, vi } from 'vitest'
 import request from 'supertest'
 import app from "@src/server"
-import { addTaskMock, createProjectMock } from './mocks/ProjectRepoPrisma.mock'
+import { addTaskMock, createProjectMock, getProjectsInfoMock } from './mocks/ProjectRepoPrisma.mock'
+import { envConfig } from '@src/env.config'
+import { makeTestToken } from './testAuth'
+
+const token = makeTestToken(envConfig.getJwtSecret()!)
 
 vi.mock('@src/repos/ProjectRepoPrisma', () => {
     return {
@@ -18,6 +22,7 @@ describe('POST /api/projects/', () => {
     it('should create project and return http status 201', async () => {
         const res = await request(app)
             .post('/api/projects/')
+            .set("Authorization", `Bearer ${token}`)
             .send({
                 project: {
                     name: 'Project Alpha',
@@ -45,6 +50,7 @@ describe('POST /api/projects/:projectId/tasks', () => {
 
         const res = await request(app)
             .post('/api/projects/1/tasks')
+            .set("Authorization", `Bearer ${token}`)
             .send({
                 task: {
                     name: 'Task Alpha',
@@ -65,6 +71,35 @@ describe('POST /api/projects/:projectId/tasks', () => {
                 description: 'taskDescr1',
                 deadline,
             }
+        })
+    })
+})
+
+describe('POST /api/projects/info', () => {
+    it('should return projects info and status 200', async () => {
+        const res = await request(app)
+            .get('/api/projects/info')
+            .set("Authorization", `Bearer ${token}`)
+
+        expect(res.status).toBe(200)
+        expect(getProjectsInfoMock).toHaveBeenCalledWith(12345)
+        expect(res.body).toEqual({
+            projects: [
+                {
+                    id: 1,
+                    name: 'Project Alpha',
+                    description: 'Alpha description',
+                    tasks: [
+                        {
+                            status: 'IN_PROGRESS',
+                            performer: {
+                                name: 'John',
+                                email: 'john@example.com',
+                            },
+                        },
+                    ],
+                },
+            ],
         })
     })
 })

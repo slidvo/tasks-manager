@@ -55,6 +55,17 @@ async function addTask(req: Req, res: Res) {
   });
 }
 
+/**
+ * Get information about all projects.
+ *
+ * @route POST /api/projects/info
+ */
+async function getProjectsInfo(req: Req, res: Res) {
+  const { id: userId } = (req as any).user;
+  const projectsInfo = await ProjectService.getProjectsInfo(userId);
+  res.status(HttpStatusCodes.OK).json({ projects: projectsInfo });
+}
+
 /******************************************************************************
                                 Export default
 ******************************************************************************/
@@ -62,4 +73,5 @@ async function addTask(req: Req, res: Res) {
 export default {
   createProject,
   addTask,
+  getProjectsInfo
 } as const;

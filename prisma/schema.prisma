@@ -12,28 +12,59 @@ datasource db {
   provider = "postgresql"
 }
 
-
 model User {
   id    Int     @id @default(autoincrement())
-  uuid String @unique @default(uuid())
+  uuid  String  @unique @default(uuid())
   email String  @unique
   name  String?
+  tasks Task[]
+  timeSheets TimeSheet[]
+  projects Project[]
 }
 
 model Project {
-  id          Int    @id @default(autoincrement())
-  uuid String @unique @default(uuid())
-  name        String @unique
+  id          Int     @id @default(autoincrement())
+  uuid        String  @unique @default(uuid())
+  name        String  @unique
   description String?
   tasks       Task[]
+  ownerId     Int?
+  owner       User?   @relation(fields: [ownerId], references: [id], onDelete: SetNull)
 }
 
+enum TaskStatus {
+  CREATED
+  IN_PROGRESS
+  DONE
+}
+
+//TODO Remove spent_time, use timeSheets for calculating spent time
 model Task {
-  id          Int      @id @default(autoincrement())
-  uuid        String   @unique @default(uuid())
-  name        String
-  description String?
-  deadline    DateTime
-  projectId   Int
-  project     Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  id           Int        @id @default(autoincrement())
+  uuid         String     @unique @default(uuid())
+  name         String
+  description  String?
+  status       TaskStatus @default(CREATED)
+  created_at   DateTime   @default(now())
+  completed_at DateTime?
+  spent_time   Int?
+  deadline     DateTime
+  projectId    Int
+  project      Project    @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  userId       Int?
+  user         User?      @relation(fields: [userId], references: [id], onDelete: SetNull)
+  timeSheets   TimeSheet[]
+}
+
+
+model TimeSheet {
+  id         Int      @id @default(autoincrement())
+  spent_time Int?
+  date       DateTime @default(now())
+  userId     Int
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  taskId     Int
+  task       Task     @relation(fields: [taskId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, taskId])
 }

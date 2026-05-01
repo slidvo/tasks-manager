@@ -1,0 +1,72 @@
+@baseUrl = http://localhost:3000
+### Запрос на получение всех пользователей из API. Ответ содержит массив объектов с именами и email-адресами пользователей.
+GET {{baseUrl}}/api/users/all
+# Добавить хедер Bearer JWT-TOKEN когда реализую авторизацию
+
+# HTTP/1.1 200 OK
+# X-Powered-By: Express
+# Content-Type: application/json; charset=utf-8
+# Content-Length: 209
+# ETag: W/"d1-F+nhn0d/DodDyPIO5sS4pLGRBHs"
+# Date: Sat, 25 Apr 2026 03:19:38 GMT
+# Connection: close
+
+# {
+#   "users": [
+#     {
+#       "name": "Женя Потапов",
+#       "email": "potapovpro@mail.ru"
+#     },
+#     {
+#       "name": "Женя Потапов 1",
+#       "email": "potapovpro1@mail.ru"
+#     },
+#     {
+#       "name": "Женя Потапов 1",
+#       "email": "potapovpro2@mail.ru"
+#     }
+#   ]
+# }
+
+### Запрос на добавление проекта в БД
+POST {{baseUrl}}/api/projects
+# Добавить хедер Bearer JWT-TOKEN когда реализую авторизацию
+Content-Type: application/json
+
+{
+	"project": {
+		"name": "Новый проект",
+		"description": "Описание нового проекта"
+	}
+}
+
+### Запрос назначение исполнителя задачи
+PUT {{baseUrl}}/api/tasks/1/assign
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJwb3RhcG92cHJvQG1haWwucnUiLCJpYXQiOjE3NzcyNjMxNjgsImV4cCI6MTc3NzI2Njc2OH0.8sPELSZwmUkWdBFCkjenzzRm3kKvXwW_SnoZzySckXA
+
+### Запрос на вход в систему 
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "potapovpro@mail.ru",
+  "password": "secret"
+}
+
+### 
+PATCH {{baseUrl}}/api/tasks/1/status
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJwb3RhcG92cHJvQG1haWwucnUiLCJpYXQiOjE3NzcyNjMxNjgsImV4cCI6MTc3NzI2Njc2OH0.8sPELSZwmUkWdBFCkjenzzRm3kKvXwW_SnoZzySckXA
+Content-Type: application/json
+
+{
+  "status": "IN_PROGRESS"
+}
+
+###
+GET {{baseUrl}}/api/projects/info
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJwb3RhcG92cHJvQG1haWwucnUiLCJpYXQiOjE3NzczNDkzMDAsImV4cCI6MTc3NzM1MjkwMH0.lPZHnplTltJ0qC0IWFtH_RPFLbejXCfQDgowV8tuFTs
+
+### Запрос на просмотр времени работы разработчика (userId=1, без фильтров)
+GET {{baseUrl}}/api/timesheets/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJwb3RhcG92cHJvQG1haWwucnUiLCJpYXQiOjE3Nzc2MTU1MzUsImV4cCI6MTc3NzYxOTEzNX0.g5OcNRI_0pGLdJxfHqjmAygqFMSQtuaOg2uyq-toD6w
+

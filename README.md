@@ -38,5 +38,10 @@ Check for typescript errors.
 
 - If `npm run dev` gives you issues with bcrypt on MacOS you may need to run: `npm rebuild bcrypt --build-from-source`.
 
-# npx prisma migrate dev --name name_of_migration
+# Миграция
+
+## npx prisma migrate dev --name name_of_migration
+
+## Migraton with create-only
+  npx prisma migrate dev --name add_task_completed_at_and_spent_time --create-only
 # npx prisma generate
