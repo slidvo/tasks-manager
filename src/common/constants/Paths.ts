@@ -24,6 +24,10 @@ const Paths = {
     _: '/tasks',
     Assign: '/:taskId/assign',
     Status: '/:taskId/status'
+  },
+  TimeSheets: {
+    _: '/timesheets',
+    GetByUser: '/:userId',
   }
 } as const;
 

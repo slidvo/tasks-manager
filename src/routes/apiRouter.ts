@@ -5,6 +5,7 @@ import AuthRoutes from './AuthRoutes';
 import ProjectRoutes from './ProjectRoutes';
 import UserRoutes from './UserRoutes';
 import TasksRoutes from './TasksRoutes';
+import TimeSheetsRoutes from './TimeSheetsRoutes';
 import { authMiddleware } from '@src/utils/middlewares';
 
 /******************************************************************************
@@ -41,11 +42,16 @@ const tasksRouter = Router()
 tasksRouter.put(Paths.Tasks.Assign, authMiddleware, TasksRoutes.assign);
 tasksRouter.patch(Paths.Tasks.Status, authMiddleware, TasksRoutes.updateStatus);
 
+// ----------------------- Add TimeSheetsRouter --------------------------- //
+const timeSheetsRouter = Router();
+timeSheetsRouter.get(Paths.TimeSheets.GetByUser, authMiddleware, TimeSheetsRoutes.getByUser);
+
 //=============================================================================
 apiRouter.use(Paths.Projects._, projectRouter);
 apiRouter.use(Paths.Users._, userRouter);
 apiRouter.use(Paths.Auth._, authRouter);
-apiRouter.use(Paths.Tasks._, tasksRouter)
+apiRouter.use(Paths.Tasks._, tasksRouter);
+apiRouter.use(Paths.TimeSheets._, timeSheetsRouter);
 /******************************************************************************
                                  Export
  ******************************************************************************/
