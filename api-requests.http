@@ -65,3 +65,8 @@ Content-Type: application/json
 ###
 GET {{baseUrl}}/api/projects/info
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJwb3RhcG92cHJvQG1haWwucnUiLCJpYXQiOjE3NzczNDkzMDAsImV4cCI6MTc3NzM1MjkwMH0.lPZHnplTltJ0qC0IWFtH_RPFLbejXCfQDgowV8tuFTs
+
+### Запрос на просмотр времени работы разработчика (userId=1, без фильтров)
+GET {{baseUrl}}/api/timesheets/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJwb3RhcG92cHJvQG1haWwucnUiLCJpYXQiOjE3Nzc2MTU1MzUsImV4cCI6MTc3NzYxOTEzNX0.g5OcNRI_0pGLdJxfHqjmAygqFMSQtuaOg2uyq-toD6w
+

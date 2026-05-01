@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction, Router } from 'express';
+import { Request, Response, NextFunction } from 'express';
 import { envConfig } from '@src/env.config';
 import jwt from "jsonwebtoken"
 import { logger } from '@src/logger';
