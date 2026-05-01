@@ -27,6 +27,7 @@ const Paths = {
   },
   TimeSheets: {
     _: '/timesheets',
+    GetByProject: '/projects/:projectId',
     GetByUser: '/:userId',
   }
 } as const;

@@ -17,6 +17,15 @@ export interface TimeSheetWithRelations {
     task: { name: string };
 }
 
+export interface TimeSheetForProject {
+    id: number;
+    spent_time: number | null;
+    date: Date;
+    userId: number;
+    user: { name: string | null };
+    task: { project: { name: string } };
+}
+
 export class TimeSheetsRepoPrisma {
     private prisma: PrismaClient;
 
@@ -43,6 +52,27 @@ export class TimeSheetsRepoPrisma {
                 task: { select: { name: true } },
             },
             orderBy: { date: 'asc' },
+        });
+    }
+
+    async getByProject(
+        projectId: number,
+        filters: Omit<TimeSheetFilters, 'projectId'>,
+    ): Promise<TimeSheetForProject[]> {
+        return this.prisma.timeSheet.findMany({
+            where: {
+                task: { projectId },
+                ...((filters.from !== undefined || filters.to !== undefined) && {
+                    date: {
+                        ...(filters.from && { gte: filters.from }),
+                        ...(filters.to && { lte: filters.to }),
+                    },
+                }),
+            },
+            include: {
+                user: { select: { name: true } },
+                task: { select: { project: { select: { name: true } } } },
+            },
         });
     }
 }

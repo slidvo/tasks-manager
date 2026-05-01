@@ -22,6 +22,17 @@ async function getByUser(req: Req, res: Res) {
   res.status(HttpStatusCodes.OK).json({ timeSheets });
 }
 
+async function getByProject(req: Req, res: Res) {
+  const projectId = Number(req.params.projectId);
+  const from = req.query.from ? new Date(req.query.from as string) : undefined;
+  const to = req.query.to ? new Date(req.query.to as string) : undefined;
+
+  const result = await TimeSheetsService.getByProject(projectId, from, to);
+
+  res.status(HttpStatusCodes.OK).json(result);
+}
+
 export default {
   getByUser,
+  getByProject,
 } as const;

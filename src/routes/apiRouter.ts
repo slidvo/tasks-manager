@@ -44,6 +44,7 @@ tasksRouter.patch(Paths.Tasks.Status, authMiddleware, TasksRoutes.updateStatus);
 
 // ----------------------- Add TimeSheetsRouter --------------------------- //
 const timeSheetsRouter = Router();
+timeSheetsRouter.get(Paths.TimeSheets.GetByProject, authMiddleware, TimeSheetsRoutes.getByProject);
 timeSheetsRouter.get(Paths.TimeSheets.GetByUser, authMiddleware, TimeSheetsRoutes.getByUser);
 
 //=============================================================================
